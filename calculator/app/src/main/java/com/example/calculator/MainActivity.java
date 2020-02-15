@@ -12,21 +12,23 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
 
-    String sign,value1,value2, value4;
+    String sign,value1,value2, value3;
     Double num1,num2,result;
     boolean hasdot, signBool, zeroBool;
 
-    TextView input,signBox;
+    TextView input,signBox, values;
 
 
 
-    @Override
+    @Override // Создаем данные и если есть сохр, то применяем сохр
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         input=(TextView) findViewById(R.id.input);
         signBox = (TextView) findViewById(R.id.sign);
+        values = (TextView) findViewById((R.id.values));
+        values.setText(value1 + "___ " + value2 + "");
         hasdot = false;
         signBool = false;
         zeroBool = false;
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             sign = savedInstanceState.getString("sign");
             value1 = savedInstanceState.getString("value1");
             value2 = savedInstanceState.getString("value2");
-            value4 = savedInstanceState.getString("value4");
+            value3 = savedInstanceState.getString("value3");
             num1 = savedInstanceState.getDouble("num1");
             num2 = savedInstanceState.getDouble("num2");
             result = savedInstanceState.getDouble("result");
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
+    @Override // Сохраняем данные при переходе
     public void onSaveInstanceState(@NonNull Bundle outState)
     {
         super.onSaveInstanceState(outState);
@@ -64,38 +66,20 @@ public class MainActivity extends AppCompatActivity {
         {
             outState.putString("sign",sign);
         }
-        if(input.getText() != null)
-        {
-            if(input.getText().equals(""))
-            {
 
-            }
-            else if (value1 == null)
-            {
-                value1 = input.getText().toString();
-                outState.putString("value1",value1);
-            }
+        if(value1 == "" || value1 == null) {
+            if(input.getText() == "" || input.getText() == null)
+                outState.putString("value1", "");
             else
-            {
-                outState.putString("value1",value1);
-            }
+                outState.putString("value1", input.getText().toString());
+            outState.putString("value2", "");
         }
-        if(input.getText() != null && value1 != null)
-        {
-            if(input.getText().equals(""))
-            {
-
-            }
+        else {
+            if(input.getText() == "" || input.getText() == null)
+                outState.putString("value2", "");
             else
-            {
-                value2 = input.getText().toString();
-                outState.putString("value2",value2);
-            }
-        }
-        if(value1 != null)
-        {
-            value4 = value1;
-            outState.putString("value4",value4);
+                outState.putString("value2", input.getText().toString());
+            outState.putString("value1", value1);
         }
         if(num1 != null)
         {
@@ -130,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void btnClick_1(View view)
     {
-        if (input.getText().equals("0"))
+        if (input.getText().equals("0") || input.getText().equals("Error!"))
         {
             input.setText(null);
             input.setText(input.getText() + "1");
@@ -144,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void btnClick_2(View view)
     {
-        if (input.getText().equals("0"))
+        if (input.getText().equals("0") || input.getText().equals("Error!"))
         {
             input.setText(null);
             input.setText(input.getText() + "2");
@@ -158,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void btnClick_3(View view)
     {
-        if (input.getText().equals("0"))
+        if (input.getText().equals("0") || input.getText().equals("Error!"))
         {
             input.setText(null);
             input.setText(input.getText() + "3");
@@ -172,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void btnClick_4(View view)
     {
-        if (input.getText().equals("0"))
+        if (input.getText().equals("0") || input.getText().equals("Error!"))
         {
             input.setText(null);
             input.setText(input.getText() + "4");
@@ -186,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void btnClick_5(View view)
     {
-        if (input.getText().equals("0"))
+        if (input.getText().equals("0") || input.getText().equals("Error!"))
         {
             input.setText(null);
             input.setText(input.getText() + "5");
@@ -200,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void btnClick_6(View view)
     {
-        if (input.getText().equals("0"))
+        if (input.getText().equals("0") || input.getText().equals("Error!"))
         {
             input.setText(null);
             input.setText(input.getText() + "6");
@@ -214,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void btnClick_7(View view)
     {
-        if (input.getText().equals("0"))
+        if (input.getText().equals("0") || input.getText().equals("Error!"))
         {
             input.setText(null);
             input.setText(input.getText() + "7");
@@ -228,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void btnClick_8(View view)
     {
-        if (input.getText().equals("0"))
+        if (input.getText().equals("0") || input.getText().equals("Error!"))
         {
             input.setText(null);
             input.setText(input.getText() + "8");
@@ -242,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void btnClick_9(View view)
     {
-        if (input.getText().equals("0"))
+        if (input.getText().equals("0") || input.getText().equals("Error!"))
         {
             input.setText(null);
             input.setText(input.getText() + "9");
@@ -258,9 +242,9 @@ public class MainActivity extends AppCompatActivity {
         if (hasdot == false)
         {
             hasdot = true;
-            if(input.getText().equals(""))
+            if (input.getText().equals("") || input.getText().equals("Error!"))
             {
-                input.setText((input.getText() + "0."));
+                input.setText("0.");
             }
             else
             {
@@ -289,14 +273,13 @@ public class MainActivity extends AppCompatActivity {
                 signBox.setText("+");
                 hasdot = false;
                 signBool = true;
-                value4 = value1;
-
+                value3 = value1;
             }
         }
         else
         {
             input.setText("");
-            value1 = value4;
+            value1 = value3;
             sign = "+";
             signBox.setText("+");
         }
@@ -322,13 +305,13 @@ public class MainActivity extends AppCompatActivity {
                 input.setText(null);
                 signBox.setText("*");
                 hasdot = false;
-                value4 = value1;
+                value3 = value1;
             }
         }
         else
         {
             input.setText("");
-            value1 = value4;
+            value1 = value3;
             sign = "*";
             signBox.setText("*");
         }
@@ -353,13 +336,13 @@ public class MainActivity extends AppCompatActivity {
                 input.setText(null);
                 signBox.setText("-");
                 hasdot = false;
-                value4 = value1;
+                value3 = value1;
             }
         }
         else
         {
             input.setText("");
-            value1 = value4;
+            value1 = value3;
             sign = "-";
             signBox.setText("-");
         }
@@ -384,13 +367,13 @@ public class MainActivity extends AppCompatActivity {
                 input.setText(null);
                 signBox.setText("/");
                 hasdot = false;
-                value4 = value1;
+                value3 = value1;
             }
         }
         else
         {
             input.setText("");
-            value1 = value4;
+            value1 = value3;
             sign = "/";
             signBox.setText("/");
         }
@@ -412,6 +395,8 @@ public class MainActivity extends AppCompatActivity {
             double num3 = Double.parseDouble(value3);
             result = num3 * num3;
             input.setText(result + "");
+            value1 = null;
+            value2 = null;
             result = null;
         }
     }
@@ -440,231 +425,233 @@ public class MainActivity extends AppCompatActivity {
                 input.setText(result + "");
                 result = null;
             }
+            value1 = null;
+            value2 = null;
         }
     }
 
 
-    public void btnClick_sin(View view)
-    {
-        if(input.getText().equals(""))
-        {
-            signBox.setText("Error!");
-        }
-        else
-        {
-            if(signBox.getText().equals(("Error!")))
-            {
-                signBox.setText("");
-            }
-            String value3 = input.getText().toString();
-            double num3 = Double.parseDouble(value3);
-            result = Math.sin(num3);
-            input.setText(result + "");
-            result = null;
-        }
-    }
-
-    public void btnClick_cos(View view)
-    {
-        if(input.getText().equals(""))
-        {
-            signBox.setText("Error!");
-        }
-        else
-        {
-            if(signBox.getText().equals(("Error!")))
-            {
-                signBox.setText("");
-            }
-            String value3 = input.getText().toString();
-            double num3 = Double.parseDouble(value3);
-            result = Math.cos(num3);
-            input.setText(result + "");
-            result = null;
-        }
-    }
-
-    public void btnClick_tan(View view)
-    {
-        if(input.getText().equals(""))
-        {
-            signBox.setText("Error!");
-        }
-        else
-        {
-            if(signBox.getText().equals(("Error!")))
-            {
-                signBox.setText("");
-            }
-            String value3 = input.getText().toString();
-            double num3 = Double.parseDouble(value3);
-            result = Math.tan(num3);
-            input.setText(result + "");
-            result = null;
-        }
-    }
-
-    public void btnClick_percent(View view)
-    {
-        if(input.getText().equals(""))
-        {
-            signBox.setText("Error!");
-        }
-        else
-        {
-            if(signBox.getText().equals(("Error!")))
-            {
-                signBox.setText("");
-            }
-            String value3 = input.getText().toString();
-            double num3 = Double.parseDouble(value3);
-            result = num3 * 0.01;
-            input.setText(result + "");
-            result = null;
-        }
-    }
-
-    public void btnClick_ln(View view)
-    {
-        if(input.getText().equals(""))
-        {
-            signBox.setText("Error!");
-        }
-        else
-        {
-            if(signBox.getText().equals(("Error!")))
-            {
-                signBox.setText("");
-            }
-            String value3 = input.getText().toString();
-            double num3 = Double.parseDouble(value3);
-            if(num3 <= 0)
-            {
-                signBox.setText("Error!");
-            }
-            else
-            {
-                result = Math.log(num3);
-                input.setText(result + "");
-                result = null;
-            }
-        }
-    }
-
-    public void btnClick_log(View view)
-    {
-        if(input.getText().equals(""))
-        {
-            signBox.setText("Error!");
-        }
-        else
-        {
-            if(signBox.getText().equals(("Error!")))
-            {
-                signBox.setText("");
-            }
-            String value3 = input.getText().toString();
-            double num3 = Double.parseDouble(value3);
-            if(num3 <= 0)
-            {
-                signBox.setText("Error!");
-            }
-            else
-            {
-                result = Math.log10(num3);
-                input.setText(result + "");
-                result = null;
-            }
-        }
-    }
-
-    public void btnClick_sqr_n(View view)
-    {
-        if(signBool == false)
-        {
-            if(input.getText().equals(""))
-            {
-                value1 = "0";
-                sign = "^m";
-                input.setText(null);
-                signBox.setText("^m");
-                hasdot = false;
-                signBool = true;
-            }
-            else {
-                sign = "^m";
-                value1 = input.getText().toString();
-                input.setText(null);
-                signBox.setText("^m");
-                hasdot = false;
-                value4 = value1;
-            }
-        }
-        else
-        {
-            input.setText("");
-            value1 = value4;
-            sign = "^m";
-            signBox.setText("^m");
-        }
-    }
-
-
-    public void btnClick_sqrt_n(View view)
-    {
-        if(signBool == false)
-        {
-            if(input.getText().equals(""))
-            {
-                value1 = "0";
-                sign = "n√";
-                input.setText(null);
-                signBox.setText("n√");
-                hasdot = false;
-                signBool = true;
-            }
-            else {
-                sign = "n√";
-                value1 = input.getText().toString();
-                input.setText(null);
-                signBox.setText("n√");
-                hasdot = false;
-                value4 = value1;
-            }
-        }
-        else
-        {
-            input.setText("");
-            value1 = value4;
-            sign = "n√";
-            signBox.setText("n√");
-        }
-    }
-
-    public void btnClick_factorial(View view)
-    {
-        if(input.getText().equals(""))
-        {
-            signBox.setText("Error!");
-        }
-        else
-        {
-            if(signBox.getText().equals(("Error!")))
-            {
-                signBox.setText("");
-            }
-            String value3 = input.getText().toString();
-            int num3 = Integer.parseInt(value3);
-            int c = 1;
-            for (int i = 2; i <= num3; i++)
-            {
-                c = c * i;
-            }
-            result = Double.valueOf(c);
-            input.setText(result + "");
-            result = null;
-        }
-    }
+//    public void btnClick_sin(View view)
+//    {
+//        if(input.getText().equals(""))
+//        {
+//            signBox.setText("Error!");
+//        }
+//        else
+//        {
+//            if(signBox.getText().equals(("Error!")))
+//            {
+//                signBox.setText("");
+//            }
+//            String value3 = input.getText().toString();
+//            double num3 = Double.parseDouble(value3);
+//            result = Math.sin(num3);
+//            input.setText(result + "");
+//            result = null;
+//        }
+//    }
+//
+//    public void btnClick_cos(View view)
+//    {
+//        if(input.getText().equals(""))
+//        {
+//            signBox.setText("Error!");
+//        }
+//        else
+//        {
+//            if(signBox.getText().equals(("Error!")))
+//            {
+//                signBox.setText("");
+//            }
+//            String value3 = input.getText().toString();
+//            double num3 = Double.parseDouble(value3);
+//            result = Math.cos(num3);
+//            input.setText(result + "");
+//            result = null;
+//        }
+//    }
+//
+//    public void btnClick_tan(View view)
+//    {
+//        if(input.getText().equals(""))
+//        {
+//            signBox.setText("Error!");
+//        }
+//        else
+//        {
+//            if(signBox.getText().equals(("Error!")))
+//            {
+//                signBox.setText("");
+//            }
+//            String value3 = input.getText().toString();
+//            double num3 = Double.parseDouble(value3);
+//            result = Math.tan(num3);
+//            input.setText(result + "");
+//            result = null;
+//        }
+//    }
+//
+//    public void btnClick_percent(View view)
+//    {
+//        if(input.getText().equals(""))
+//        {
+//            signBox.setText("Error!");
+//        }
+//        else
+//        {
+//            if(signBox.getText().equals(("Error!")))
+//            {
+//                signBox.setText("");
+//            }
+//            String value3 = input.getText().toString();
+//            double num3 = Double.parseDouble(value3);
+//            result = num3 * 0.01;
+//            input.setText(result + "");
+//            result = null;
+//        }
+//    }
+//
+//    public void btnClick_ln(View view)
+//    {
+//        if(input.getText().equals(""))
+//        {
+//            signBox.setText("Error!");
+//        }
+//        else
+//        {
+//            if(signBox.getText().equals(("Error!")))
+//            {
+//                signBox.setText("");
+//            }
+//            String value3 = input.getText().toString();
+//            double num3 = Double.parseDouble(value3);
+//            if(num3 <= 0)
+//            {
+//                signBox.setText("Error!");
+//            }
+//            else
+//            {
+//                result = Math.log(num3);
+//                input.setText(result + "");
+//                result = null;
+//            }
+//        }
+//    }
+//
+//    public void btnClick_log(View view)
+//    {
+//        if(input.getText().equals(""))
+//        {
+//            signBox.setText("Error!");
+//        }
+//        else
+//        {
+//            if(signBox.getText().equals(("Error!")))
+//            {
+//                signBox.setText("");
+//            }
+//            String value3 = input.getText().toString();
+//            double num3 = Double.parseDouble(value3);
+//            if(num3 <= 0)
+//            {
+//                signBox.setText("Error!");
+//            }
+//            else
+//            {
+//                result = Math.log10(num3);
+//                input.setText(result + "");
+//                result = null;
+//            }
+//        }
+//    }
+//
+//    public void btnClick_sqr_n(View view)
+//    {
+//        if(signBool == false)
+//        {
+//            if(input.getText().equals(""))
+//            {
+//                value1 = "0";
+//                sign = "^m";
+//                input.setText(null);
+//                signBox.setText("^m");
+//                hasdot = false;
+//                signBool = true;
+//            }
+//            else {
+//                sign = "^m";
+//                value1 = input.getText().toString();
+//                input.setText(null);
+//                signBox.setText("^m");
+//                hasdot = false;
+//                value3 = value1;
+//            }
+//        }
+//        else
+//        {
+//            input.setText("");
+//            value1 = value3;
+//            sign = "^m";
+//            signBox.setText("^m");
+//        }
+//    }
+//
+//
+//    public void btnClick_sqrt_n(View view)
+//    {
+//        if(signBool == false)
+//        {
+//            if(input.getText().equals(""))
+//            {
+//                value1 = "0";
+//                sign = "n√";
+//                input.setText(null);
+//                signBox.setText("n√");
+//                hasdot = false;
+//                signBool = true;
+//            }
+//            else {
+//                sign = "n√";
+//                value1 = input.getText().toString();
+//                input.setText(null);
+//                signBox.setText("n√");
+//                hasdot = false;
+//                value3 = value1;
+//            }
+//        }
+//        else
+//        {
+//            input.setText("");
+//            value1 = value3;
+//            sign = "n√";
+//            signBox.setText("n√");
+//        }
+//    }
+//
+//    public void btnClick_factorial(View view)
+//    {
+//        if(input.getText().equals(""))
+//        {
+//            signBox.setText("Error!");
+//        }
+//        else
+//        {
+//            if(signBox.getText().equals(("Error!")))
+//            {
+//                signBox.setText("");
+//            }
+//            String value3 = input.getText().toString();
+//            int num3 = Integer.parseInt(value3);
+//            int c = 1;
+//            for (int i = 2; i <= num3; i++)
+//            {
+//                c = c * i;
+//            }
+//            result = Double.valueOf(c);
+//            input.setText(result + "");
+//            result = null;
+//        }
+//    }
 
 
 
@@ -679,19 +666,92 @@ public class MainActivity extends AppCompatActivity {
             value2 = input.getText().toString();
             num1 = Double.parseDouble(value1);
             num2 = Double.parseDouble(value2);
-            input.setText(null);
+            input.setText("");
 
             switch (sign)
             {
                 default:
                     break;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 case "+":
                     result = num1 + num2;
                     input.setText(result + "");
                     sign = null;
                     signBox.setText(null);
-                    hasdot = true;
                     signBool = false;
+                    hasdot = true;
                     break;
                 case "-":
                     result = num1 - num2;
@@ -706,13 +766,14 @@ public class MainActivity extends AppCompatActivity {
                     input.setText(result + "");
                     sign = null;
                     signBox.setText(null);
-                    hasdot = true;
                     signBool = false;
+                    hasdot = true;
                     break;
                 case "/":
-                    if(num2 == 0)
+                    if(num2 == 0 || value2 == "" || value2 == null)
                     {
-                        signBox.setText("Can`t be divided by 0");
+                        signBox.setText("Error!");
+                        break;
                     }
                     else {
                         result = num1 / num2;
@@ -723,27 +784,29 @@ public class MainActivity extends AppCompatActivity {
                         signBool = false;
                         break;
                     }
-                case "^m":
-                    result = Math.pow(num1,num2);
-                    input.setText(result + "");
-                    sign = null;
-                    signBox.setText(null);
-                    hasdot = true;
-                    signBool = false;
-                    break;
-                case "n√":
-                    num2 = 1.0 / num2;
-                    result = Math.pow(num1,num2);
-                    String fresult = String.format("%.2f",result);
-                    input.setText(fresult);
-                    sign = null;
-                    signBox.setText(null);
-                    hasdot = true;
-                    signBool = false;
-                    break;
+//                case "^m":
+//                    result = Math.pow(num1,num2);
+//                    input.setText(result + "");
+//                    sign = null;
+//                    signBox.setText(null);
+//                    hasdot = true;
+//                    signBool = false;
+//                    break;
+//                case "n√":
+//                    num2 = 1.0 / num2;
+//                    result = Math.pow(num1,num2);
+//                    String fresult = String.format("%.2f",result);
+//                    input.setText(fresult);
+//                    sign = null;
+//                    signBox.setText(null);
+//                    hasdot = true;
+//                    signBool = false;
+//                    break;
             }
         }
         else input.setText("Error!");
+
+        values.setText(value1 + "___ " + value2 + "");
     }
 
     public void btnClick_delAll(View view)
