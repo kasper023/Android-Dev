@@ -535,6 +535,9 @@ class MainActivity : AppCompatActivity() {
                     else {
                         result = num1!! / num2!!
                         input.text = result.toString() + ""
+                        sign = null
+                        checkOperation = false
+                        signbox.text = null
                     }
                 }
                 else -> {
